@@ -1,0 +1,159 @@
+---
+title: "Trabajo 1"
+author: "Jose Guidi"
+date: "2024-07-21"
+output: html_document
+---
+
+
+```{r}
+install.packages("tidyverse") 
+install.packages("tibble")
+```
+
+
+```{r}
+library(lubridate)
+library(dplyr)
+library(DT)
+library(datos)
+library(data.table)
+library(tidyverse) 
+library(tibble)
+```
+
+```{r}
+library(readr)
+Base_1_Adjudicados <- read_csv("Base_1_Adjudicados.csv")
+
+```
+
+```{r}
+library(readr)
+Base_1_Iniciados <- read_csv("Base_1_Iniciados.csv")
+
+```
+
+```{r}
+library(readr)
+Base_1_Ofertas <- read_csv("Base_1_Ofertas.csv")
+
+```
+
+```{r}
+Base_1_Ofertas$Fechapublicación <- as.Date(with(Base_1_Ofertas, paste(`Día Publicación`, `Mes Publicación`, `Año Publicación`, sep = "-")), format = "%d-%m-%Y")
+
+Base_1_Ofertas$Fechaofert <- as.Date(with(Base_1_Ofertas, paste(`Día Present Ofert`, `Mes Present Ofert`, `Año Present Ofert`, sep = "-")), format = "%d-%m-%Y")
+```
+
+```{r}
+Base_1_Adjudicados$fechapubli <- as.Date(with(Base_1_Adjudicados, paste(`Día Publicación`, `Mes Publicación`, `Año Publicación`, sep = "-")), format = "%d-%m-%Y")
+Base_1_Adjudicados$fechafirme <- as.Date(with(Base_1_Adjudicados, paste(`Día Firme`, `Mes Firme`, `Año Firme`, sep = "-")), format = "%d-%m-%Y")
+
+```
+
+```{r}
+Base_1_Iniciados$fechainv <- as.Date(with(Base_1_Iniciados, paste(`Día Inv`, `Mes Inv`, `Año Inv`, sep = "-")), format = "%d-%m-%Y") 
+
+Base_1_Iniciados$fechapubli <- as.Date(with(Base_1_Iniciados, paste(`Día Publicación`, `Mes Publicación`, `Año Publicación`, sep = "-")), format = "%d-%m-%Y")
+
+```
+
+```{r}
+Base_1_Adjudicados$...1 <- NULL
+Base_1_Adjudicados$...2 <- NULL
+
+```
+
+```{r}
+Base_1_Iniciados$...1 <- NULL
+Base_1_Iniciados$...2 <- NULL
+Base_1_Ofertas$...1 <- NULL
+Base_1_Ofertas$...2 <- NULL
+```
+
+
+```{r}
+write.csv(Base_1_Ofertas,"C:/Users/User/OneDrive - Universidad de Costa Rica/Escritorio/DATA CHALLENGE/Base_1_Ofertas.csv")
+```
+
+```{r}
+write.csv(Base_1_Iniciados,"C:/Users/User/OneDrive - Universidad de Costa Rica/Escritorio/DATA CHALLENGE/Base_1_Iniciados.csv")
+```
+
+```{r}
+write.csv(Base_1_Adjudicados,"C:/Users/User/OneDrive - Universidad de Costa Rica/Escritorio/DATA CHALLENGE/Base_1_Adjudicados.csv")
+```
+
+
+
+
+
+
+
+```{r}
+Ofertas$fecha_publicacion <-ymd_hms (Ofertas$fecha_publicacion)
+Ofertas$fecha_presenta_oferta <-ymd (Ofertas$fecha_presenta_oferta)
+```
+
+```{r}
+Adjudicados$fecha_publicacion <-ymd_hms (Adjudicados$fecha_publicacion)
+Adjudicados$fecha_adj_firme <-ymd_hms (Adjudicados$fecha_adj_firme)
+
+```
+
+```{r}
+Iniciados$fecha_publicacion <-ymd_hms (Iniciados$fecha_publicacion)
+Iniciados$fecha_invitacion<-ymd_hms (Iniciados$fecha_invitacion)
+
+```
+
+```{r}
+Ofertas<- Ofertas%>% separate(fecha_publicacion,into=c("Fecha Publicación","Hora Publicación"), sep = " ")
+
+```
+
+```{r}
+
+Ofertas<- Ofertas%>% separate(`Fecha Publicación` ,into=c("Año Publicación","Mes Publicación","Día Publicación"), sep = "-")
+Ofertas<- Ofertas%>% separate(fecha_presenta_oferta,into=c("Año Present Ofert","Mes Present Ofert","Día Present Ofert"), sep = "-")
+
+```
+
+```{r}
+Adjudicados<- Adjudicados%>% separate(fecha_adj_firme,into=c("Fecha Firme","Hora Firme"), sep = " ")
+Adjudicados<- Adjudicados%>% separate(fecha_publicacion,into=c("Fecha Publicación","Hora Publicación"), sep = " ")
+```
+
+
+```{r}
+Iniciados<- Iniciados%>% separate(fecha_publicacion,into=c("Fecha Publicación","Hora Publicación"), sep = " ")
+Iniciados<- Iniciados%>% separate(fecha_invitacion,into=c("Fecha Invitación","Hora Invitación"), sep = " ")
+```
+
+```{r}
+
+Adjudicados <- Adjudicados%>% separate(`Fecha Publicación` ,into=c("Año Publicación","Mes Publicación","Día Publicación"), sep = "-")
+Adjudicados <- Adjudicados%>% separate(`Fecha Firme` ,into=c("Año Firme","Mes Firme","Día Firme"), sep = "-")
+
+```
+
+```{r}
+
+Iniciados <- Iniciados%>% separate(`Fecha Invitación`,into=c("Año Inv","Mes Inv","Día Inv"), sep = "-")
+Iniciados <- Iniciados%>% separate(`Fecha Publicación` ,into=c("Año Publicación","Mes Publicación","Día Publicación"), sep = "-")
+
+```
+
+```{r}
+write.csv(Ofertas,"C:/Users/User/OneDrive - Universidad de Costa Rica/Escritorio/DATA CHALLENGE/Base_1_Ofertas.csv")
+```
+
+```{r}
+write.csv(Iniciados ,"C:/Users/User/OneDrive - Universidad de Costa Rica/Escritorio/DATA CHALLENGE/Base_1_Iniciados.csv")
+```
+
+```{r}
+write.csv(Adjudicados ,"C:/Users/User/OneDrive - Universidad de Costa Rica/Escritorio/DATA CHALLENGE/Base_1_Adjudicados.csv")
+```
+
